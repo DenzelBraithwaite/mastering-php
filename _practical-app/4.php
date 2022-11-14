@@ -16,12 +16,20 @@
 	
 	<?php  
 
-/*  Step1: Define a function and make it return a calculation of 2 numbers
+//  Step1: Define a function and make it return a calculation of 2 numbers
+function calculator($num1, $num2) {
+	return $num1 + $num2;
+};
 
-	Step 2: Make a function that passes parameters and call it using parameter values
+calculator(10, 100); // Outputs 110
 
+// Step 2: Make a function that passes parameters and call it using parameter values
+function calculator($num1, $num2) {
+	return $num1 + $num2;
+};
 
- */
+calculator(10, 100); // Outputs 110	
+
 
 	
 ?>
