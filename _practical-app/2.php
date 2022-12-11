@@ -30,8 +30,8 @@
 			echo $associative[2];
 
 			// Step 4: Make a constant and set it to the value of PHP. and use an echo to print it out
-			define("CONST", "PHP");
-			echo CONST;
+			define("CONS", "PHP");
+			echo CONS;
 
 		?>
 

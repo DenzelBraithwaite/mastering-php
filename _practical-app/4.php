@@ -24,11 +24,11 @@ function calculator($num1, $num2) {
 calculator(10, 100); // Outputs 110
 
 // Step 2: Make a function that passes parameters and call it using parameter values
-function calculator($num1, $num2) {
+function newCalculator($num1, $num2) {
 	return $num1 + $num2;
 };
 
-calculator(10, 100); // Outputs 110	
+echo newCalculator(10, 100); // Outputs 110	
 
 
 	
