@@ -15,17 +15,17 @@
 	<?php 
 
 
-/*  Step1: Use a pre-built math function here and echo it
+	//  Step1: Use a pre-built math function here and echo it
+	echo max([1, 100, 50]);
 
+	// Step 2:  Use a pre-built string function here and echo it
+	echo strtolower("ThIs Is GoInG tO bE lOwEr CaSe...");
 
-	Step 2:  Use a pre-built string function here and echo it
-
-
-	Step 3:  Use a pre-built Array function here and echo it
-
- */
-
-	
+	//Step 3:  Use a pre-built Array function here and echo it
+	$array = [1, 5, 3, 2, 4];
+	sort($array);
+	print_r($array);
+ 
 ?>
 
 
