@@ -22,7 +22,10 @@
 
 			if (strlen($username) < 3) {
 				echo "Sorry, your username needs to be longer than 3 characters.";
-			}
+			} else {
+                echo "Your username is: " . $username . "<br>";
+                echo "Your super secret password is " . $password;
+            }
 		}
 
 
