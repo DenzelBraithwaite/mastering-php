@@ -4,7 +4,7 @@ if (isset($_POST['submit'])) {
   $username = $_POST['username'];
   $password = $_POST['password'];
   $connection = mysqli_connect('localhost', 'root', '', 'fighters');
-  echo $username . '<br>' . $password;
+  // echo $username . '<br>' . $password;
 
   if ($connection) {
     // echo "We are connected!";
@@ -30,10 +30,10 @@ if (isset($_POST['submit'])) {
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
   <title>Stats Checker | Character Stats</title>
 </head>
-<body>
+<body class="bg-signup">
   <div class="container-login">
     <div>
-      <h2 class="login-title">Login</h2>
+      <h2 class="login-title">Sign Up</h2>
       <form action="login.php" method="POST">
       <div class="form-group">
           <label for="username">Fighter Name</label>
@@ -43,12 +43,15 @@ if (isset($_POST['submit'])) {
           <label for="password">Password</label>
           <input id="password" class="form-control" name="password" type="password">
         </div>
-        <input class="btn btn-submit" type="submit" name="submit" value="Log In">
-        <a class="btn btn-signup" href="signup.php">Sign up</a>
+        <div class="form-group">
+          <label for="confirm-password">Confirm Password</label>
+          <input id="confirm-password" class="form-control" name="confirm-password" type="password">
+        </div>
+        <input class="btn btn-submit" type="submit" name="submit" value="Sign Up">
         <!-- <button name="submit" type="submit">Submit</button> -->
       </form>
     </div>
-    <img class="banner-img" src="banner.png" alt="image of ...">
+    <img class="banner-img" src="signup.png" alt="image of ...">
   </div>
 
 
