@@ -1,10 +1,9 @@
 <?php
 
 if (isset($_POST['submit'])) {
-  echo 'yes';
   $username = $_POST['username'];
   $password = $_POST['password'];
-  echo $username;
+  echo $username . '<br>' . $password;
 } else {
   echo 'no';
 };
@@ -26,7 +25,7 @@ if (isset($_POST['submit'])) {
   <div class="col-sm-6">
     <form action="login.php" method="POST">
     <div class="form-group">
-        <label for="username">Username</label>
+        <label for="username">Fighter Name</label>
         <input id="username" class="form-control" name="username" type="text">
       </div>
       <div class="form-group">
