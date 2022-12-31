@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    color: #444; /* Some sort of dark grey, not black*/
+    color: #33373b; /* Some sort of dark grey, not black*/
     font-family: 'Roboto', sans-serif;
 }
 
@@ -53,7 +53,9 @@ video {
 
 body {
     line-height: 1;
-    width: 1100px;
+    width: 100vw;
+    height: 100vh;
+    max-width: 1100px;
     position: relative;
     background-color: #bac8ff !important;
 }
@@ -67,9 +69,22 @@ table {
     border-collapse: collapse;
 }
 
-.container {
-    width: 800px;
+.container-login {
+    height: 100vh;
+    background-color: rebeccapurple;
     margin: 0 auto;
+    width: 1000px;
+    max-width: 90%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+form {
+    width: 500px;
+    max-width: 80%;
+    /* margin: 0 auto; */
 }
 
 .form-group {
@@ -80,9 +95,23 @@ table {
 
 .btn {
     border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    font-weight: bold;
+}
+
+.btn-submit {
     background-color: #1971c2;
     color: #fff;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    font-weight: bold;
+}
+
+.btn:hover,
+.btn:active {
+    cursor: pointer;
+}
+
+.banner-img {
+    object-fit: contain;
+    height: 50%;
+    width: 50%;
 }
