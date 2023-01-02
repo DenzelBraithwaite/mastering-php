@@ -75,6 +75,8 @@ if (isset($_POST['submit'])) {
 </head>
 <body>
   <div class="container-lg">
+
+    <!-- Create Hero Form -->
     <h2 class="section-title">Create a Hero</h2>
     <div class="banner-group">
       <form action="register.php" method="POST">
@@ -113,6 +115,7 @@ if (isset($_POST['submit'])) {
       <img class="banner-img" src="banner.png" alt="image of ...">
     </div>
 
+    <!-- Search Hero Form -->
     <h2 class="section-title">Search for Heroes</h2>
     <div class="banner-group">
       <img class="banner-img" src="wizard.png" alt="image of wizard.">
@@ -120,35 +123,60 @@ if (isset($_POST['submit'])) {
         <div class="form-group">
           <label for="search-name">Select a Hero</label>
           <select name="search-name" id="search-name">
-            <option value="test">test</option>
+          <?php
+            
+            ?>
           </select>
         </div>
         <input class="btn btn-blue" type="submit" name="submit" value="Search">
       </form>
     </div>
 
+    <!-- Update Hero Form -->
     <h2 class="section-title">Update Hero</h2>
     <div class="banner-group">
       <form action="register.php" method="POST">
         <div class="form-group">
-          <label for="search-name">Select a Hero</label>
-          <select name="search-name" id="search-name">
+          <label for="update-name">Select a Hero</label>
+          <select name="update-name" id="update-name">
             <option value="test">test</option>
           </select>
         </div>
         <div class="form-group">
+          <label for="update-new-name">Name</label>
+          <input id="update-new-name" name="update-new-name" type="text" required>
+        </div>
+        <div class="form-group">
           <label for="update-class">Class</label>
           <select name="update-class" id="update-class" size="1">
-            <option value="1">Archer</option>
-            <option value="2">Mage</option>
-            <option value="3">Priest</option>
-            <option value="4">Warrior</option>
+            <?php
+            
+            ?>
           </select>
+        </div>
+        <div class="form-group">
+          <label for="update-age">Age</label>
+          <input id="update-age" name="update-age" type="number" required>
+        </div>
+        <div class="form-group">
+          <label for="update-health">Health</label>
+          <input id="update-health" name="update-health" type="number" required>
+        </div>
+        <div class="form-group">
+          <label for="update-damage">Damage</label>
+          <input id="update-damage" name="update-damage" type="number" required>
+        </div>
+        <div class="form-group">
+          <label for="update-weapon">Weapon</label>
+          <input id="update-weapon" name="update-weapon" type="text" required>
         </div>
         <input class="btn btn-blue" type="submit" name="submit" value="Update">
       </form>
       <img class="banner-img" src="adventurer.png" alt="image of wizard.">
     </div>
   </div>
+  <footer>
+    <p>Copyright &copy; 2023 Denzel Braithwaite</p>
+  </footer>
 </body>
 </html>
