@@ -1,19 +1,12 @@
-<?php
-$connection = mysqli_connect('localhost', 'root', '', 'rpg');
-
-if ($connection) {
-  // echo "We are connected!" . "<br>";
-} else {
-  die('No luck :(');
-}
+<?php include "db.php";
 
 if (isset($_POST['submit'])) {
-  $heroClass = (int)$_POST['hero-class']; // Converting to number
-  $name = $_POST['hero-name'];
-  $age = $_POST['hero-age'];
-  $health = $_POST['hero-health'];
-  $damage = $_POST['hero-damage'];
-  $weapon = $_POST['hero-weapon'];
+  $heroClass = (int)$_POST['create-class']; // Converting to number
+  $name = $_POST['create-name'];
+  $age = $_POST['create-age'];
+  $health = $_POST['create-health'];
+  $damage = $_POST['create-damage'];
+  $weapon = $_POST['create-weapon'];
 
   // Creates db entry from form
   $queryInsert = "INSERT INTO heroes(
@@ -60,12 +53,12 @@ if (isset($_POST['submit'])) {
 
 ?>
   <?php
-    echo $heroClass . '<br>';
-    echo $name . '<br>';
-    echo $age . '<br>';
-    echo $health . '<br>';
-    echo $damage . '<br>';
-    echo $weapon . '<br>';
+    // echo $heroClass . '<br>';
+    // echo $name . '<br>';
+    // echo $age . '<br>';
+    // echo $health . '<br>';
+    // echo $damage . '<br>';
+    // echo $weapon . '<br>';
   ?>
 
 <!DOCTYPE html>
@@ -81,56 +74,81 @@ if (isset($_POST['submit'])) {
   <title>Stats Checker | Character Creator and Stats Checker</title>
 </head>
 <body>
-  <?php
-  
-  if (isset($_POST['submit'])) {
-
-    while ($row = mysqli_fetch_assoc($result)) {
-      // print_r($row);
-      // echo "<br>";
-    };
-  };
-  
-  ?>
-  <div class="container-login">
-    <div>
-      <h2 class="login-title">Create Hero</h2>
+  <div class="container-lg">
+    <h2 class="section-title">Create a Hero</h2>
+    <div class="banner-group">
       <form action="register.php" method="POST">
         <div class="form-group">
-          <label for="hero-class">Class</label>
-          <select name="hero-class" id="hero-class" size="1">
+          <label for="create-class">Class</label>
+          <select name="create-class" id="create-class" size="1">
             <option value="1">Archer</option>
             <option value="2">Mage</option>
             <option value="3">Priest</option>
             <option value="4">Warrior</option>
           </select>
         </div>
-      <div class="form-group">
-          <label for="hero-name">Name</label>
-          <input id="hero-name" name="hero-name" type="text" required>
+        <div class="form-group">
+          <label for="create-name">Name</label>
+          <input id="create-name" name="create-name" type="text" required>
         </div>
         <div class="form-group">
-          <label for="hero-age">Age</label>
-          <input id="hero-age" name="hero-age" type="number" required>
+          <label for="create-age">Age</label>
+          <input id="create-age" name="create-age" type="number" required>
         </div>
         <div class="form-group">
-          <label for="hero-health">Health</label>
-          <input id="hero-health" name="hero-health" type="number" required>
+          <label for="create-health">Health</label>
+          <input id="create-health" name="create-health" type="number" required>
         </div>
         <div class="form-group">
-          <label for="hero-damage">Damage</label>
-          <input id="hero-damage" name="hero-damage" type="number" required>
+          <label for="create-damage">Damage</label>
+          <input id="create-damage" name="create-damage" type="number" required>
         </div>
         <div class="form-group">
-          <label for="hero-weapon">Weapon</label>
-          <input id="hero-weapon" name="hero-weapon" type="text" required>
+          <label for="create-weapon">Weapon</label>
+          <input id="create-weapon" name="create-weapon" type="text" required>
         </div>
         <input class="btn btn-submit" type="submit" name="submit" value="Create">
-        <a class="btn btn-signup" href="search.php">Search</a>
         <!-- <button name="submit" type="submit">Submit</button> -->
       </form>
+      <img class="banner-img" src="banner.png" alt="image of ...">
     </div>
-    <img class="banner-img" src="banner.png" alt="image of ...">
+
+    <h2 class="section-title">Search for Heroes</h2>
+    <div class="banner-group">
+      <img class="banner-img" src="wizard.png" alt="image of wizard.">
+      <form action="register.php" method="POST">
+        <div class="form-group">
+          <label for="search-name">Select a Hero</label>
+          <select name="search-name" id="search-name">
+            <option value="test">test</option>
+          </select>
+        </div>
+        <input class="btn btn-blue" type="submit" name="submit" value="Search">
+      </form>
+    </div>
+
+    <h2 class="section-title">Update Hero</h2>
+    <div class="banner-group">
+      <form action="register.php" method="POST">
+        <div class="form-group">
+          <label for="search-name">Select a Hero</label>
+          <select name="search-name" id="search-name">
+            <option value="test">test</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="update-class">Class</label>
+          <select name="update-class" id="update-class" size="1">
+            <option value="1">Archer</option>
+            <option value="2">Mage</option>
+            <option value="3">Priest</option>
+            <option value="4">Warrior</option>
+          </select>
+        </div>
+        <input class="btn btn-blue" type="submit" name="submit" value="Update">
+      </form>
+      <img class="banner-img" src="adventurer.png" alt="image of wizard.">
+    </div>
   </div>
 </body>
 </html>
