@@ -51,7 +51,7 @@ if (isset($_POST['submit'])) {
         <!-- <button name="submit" type="submit">Submit</button> -->
       </form>
     </div>
-    <img class="banner-img" src="search.png" alt="image of dnd dice">
+    <img class="banner-img" src="search.png" alt="image of dnd diced">
   </div>
 
 

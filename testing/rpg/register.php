@@ -2,34 +2,71 @@
 $connection = mysqli_connect('localhost', 'root', '', 'rpg');
 
 if ($connection) {
-  echo "We are connected!";
-  echo "<br>";
+  // echo "We are connected!" . "<br>";
 } else {
   die('No luck :(');
 }
 
 if (isset($_POST['submit'])) {
   $heroClass = (int)$_POST['hero-class']; // Converting to number
-  $firstName = $_POST['hero-first-name'];
-  $lastName = $_POST['hero-last-name'];
+  $name = $_POST['hero-name'];
   $age = $_POST['hero-age'];
   $health = $_POST['hero-health'];
   $damage = $_POST['hero-damage'];
   $weapon = $_POST['hero-weapon'];
 
-  echo $heroClass;
-  // $query = 'INSERT INTO fighters(
-  //             class_id,
-  //             first_name,
-  //             last_name,
-              
-  // )'
+  // Creates db entry from form
+  $queryInsert = "INSERT INTO heroes(
+              class_id,
+              name,
+              age,
+              health,
+              damage,
+              weapon
+              )
+              VALUES(
+                ('$heroClass'),
+                ('$name'),
+                ('$age'),
+                ('$health'),
+                ('$damage'),
+                ('$weapon')
+              )";
+
+  // Looks / counts for any duplicates
+  $queryDuplicate = "SELECT COUNT(1)
+                      FROM heroes
+                      WHERE name = ('$name')";
+
+  $duplicates = mysqli_fetch_assoc(mysqli_query($connection, $queryDuplicate));
+  if ($duplicates['COUNT(1)']) {
+    echo "That name already exists!";
+  } else {
+    echo 'The name does not exist';
+    mysqli_query($connection, $queryInsert);
+  }
+
+  $querySelectAll = "SELECT * FROM heroes";
+
+  $result = mysqli_query($connection, $querySelectAll);
+  // Making sure $result and db connection exists.
+  if (!$result) {
+    die("Something went terribly wrong..." . mysqli_error());
+  };
 
 } else {
   echo 'no';
 };
 
 ?>
+  <?php
+    echo $heroClass . '<br>';
+    echo $name . '<br>';
+    echo $age . '<br>';
+    echo $health . '<br>';
+    echo $damage . '<br>';
+    echo $weapon . '<br>';
+  ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,6 +81,17 @@ if (isset($_POST['submit'])) {
   <title>Stats Checker | Character Creator and Stats Checker</title>
 </head>
 <body>
+  <?php
+  
+  if (isset($_POST['submit'])) {
+
+    while ($row = mysqli_fetch_assoc($result)) {
+      // print_r($row);
+      // echo "<br>";
+    };
+  };
+  
+  ?>
   <div class="container-login">
     <div>
       <h2 class="login-title">Create Hero</h2>
@@ -58,12 +106,8 @@ if (isset($_POST['submit'])) {
           </select>
         </div>
       <div class="form-group">
-          <label for="hero-first-name">First name</label>
-          <input id="hero-first-name" name="hero-first-name" type="text" required>
-        </div>
-        <div class="form-group">
-          <label for="hero-last-name">Last name</label>
-          <input id="hero-last-name" name="hero-last-name" type="text" required>
+          <label for="hero-name">Name</label>
+          <input id="hero-name" name="hero-name" type="text" required>
         </div>
         <div class="form-group">
           <label for="hero-age">Age</label>
@@ -88,7 +132,5 @@ if (isset($_POST['submit'])) {
     </div>
     <img class="banner-img" src="banner.png" alt="image of ...">
   </div>
-
-
 </body>
 </html>
