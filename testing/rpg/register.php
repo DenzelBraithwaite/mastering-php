@@ -1,6 +1,11 @@
 <?php include "db.php";
 
-if (isset($_POST['submit'])) {
+function returnQuery($query) {
+  global $connection;
+  return mysqli_query($connection, $query);
+};
+
+if (isset($_POST['create'])) {
   $heroClass = (int)$_POST['create-class']; // Converting to number
   $name = $_POST['create-name'];
   $age = $_POST['create-age'];
@@ -9,7 +14,7 @@ if (isset($_POST['submit'])) {
   $weapon = $_POST['create-weapon'];
 
   // Creates db entry from form
-  $queryInsert = "INSERT INTO heroes(
+  $insertQuery = "INSERT INTO heroes(
               class_id,
               name,
               age,
@@ -31,33 +36,65 @@ if (isset($_POST['submit'])) {
                       FROM heroes
                       WHERE name = ('$name')";
 
-  $duplicates = mysqli_fetch_assoc(mysqli_query($connection, $queryDuplicate));
+  $duplicates = mysqli_fetch_assoc(returnQuery($queryDuplicate));
   if ($duplicates['COUNT(1)']) {
-    echo "That name already exists!";
+    echo "Duplicate entry blocked!";
   } else {
-    echo 'The name does not exist';
-    mysqli_query($connection, $queryInsert);
+    echo 'New entry added!';
+    returnQuery($insertQuery);
   }
   
 } else {
   echo 'no submit detected';
 };
 
-
-function returnQuery($query) {
-  global $connection;
-  return mysqli_query($connection, $query);
+// Reading row
+if (isset($_POST['find'])) {
+  $findName = $_POST['find-name'];
+  $findHeroQuery = returnQuery(
+    "SELECT
+	    name,
+      classes.class_type AS class,
+      age,
+      health,
+      damage,
+      weapon
+    FROM heroes
+    INNER JOIN classes
+    ON heroes.class_id = classes.class_id
+    WHERE name = ('$findName')"
+  );
+} else {
+  echo "<br> No Search detected.";
 };
 
-$querySelectAll = "SELECT * FROM heroes";
-$result = returnQuery($querySelectAll);
-  
-// Making sure $result and db connection exists.
-if (!$result) {
-  die("Something went terdddribly wrong..." . mysqli_error());
-};
+// Updating form
+if (isset($_POST['update'])) {
+  $heroClass = (int)$_POST['update-class']; // Converting to number
+  $oldName = $_POST['update-name'];
+  $newName = $_POST['update-new-name'];
+  $age = $_POST['update-age'];
+  $health = $_POST['update-health'];
+  $damage = $_POST['update-damage'];
+  $weapon = $_POST['update-weapon'];
 
+  $updateQuery = "UPDATE
+                    heroes
+                  SET
+                    class_id = ('$heroClass'),
+                    name = ('$newName'),
+                    age = ('$age'),
+                    health = ('$health'),
+                    damage = ('$damage'),
+                    weapon = ('$weapon')
+                  WHERE
+                    name = ('$oldName')";
+  returnQuery($updateQuery);
+  echo "<br> Update Successful!";
 
+} else {
+  echo "<br> No Update detected";
+}
 ?>
 
 <!DOCTYPE html>
@@ -108,7 +145,7 @@ if (!$result) {
           <label for="create-weapon">Weapon</label>
           <input id="create-weapon" name="create-weapon" type="text" required>
         </div>
-        <input class="btn btn-submit" type="submit" name="submit" value="Create">
+        <input class="btn btn-submit" type="submit" name="create" value="Create">
         <!-- <button name="submit" type="submit">Submit</button> -->
       </form>
       <img class="banner-img" src="banner.png" alt="image of ...">
@@ -118,23 +155,56 @@ if (!$result) {
     <h2 class="section-title">Search for Heroes</h2>
     <div class="banner-group">
       <img class="banner-img" src="wizard.png" alt="image of wizard.">
-      <form action="register.php" method="POST">
-        <div class="form-group">
-          <label for="search-name">Select a Hero</label>
-          <select name="search-name" id="search-name">
-          <?php
+      <div class="form-table-group">
+        <form action="register.php" method="POST">
+          <div class="form-group">
+            <label for="find-name">Select a Hero</label>
+            <select name="find-name" id="find-name">
+              <?php
+              $result = returnQuery("SELECT * FROM heroes");
               while ($row = mysqli_fetch_assoc($result)){
-                // print_r($row);
                 $heroName = $row['name'];
                 echo "<option value=$heroName>$heroName</option>";
               };
+              ?>
+            </select>
+          </div>
+          <input class="btn btn-blue" type="submit" name="find" value="Search">
+        </form>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Class</th>
+              <th>Age</th>
+              <th>Health</th>
+              <th>hamage</th>
+              <th>Weapon</th>
+            </tr>
+          </thead>
+          <tr>
+            <?php
+              $row = mysqli_fetch_assoc($findHeroQuery);
+              $findClass = $row['class'];
+              $findAge = $row['age'];
+              $findHealth = $row['health'];
+              $findDamage = $row['damage'];
+              $findWeapon = $row['weapon'];
+              echo "
+              <td>$findName</td>
+              <td>$findClass</td>
+              <td>$findAge</td>
+              <td>$findHealth</td>
+              <td>$findDamage</td>
+              <td>$findWeapon</td>
+              ";
             ?>
-          </select>
-        </div>
-        <input class="btn btn-blue" type="submit" name="submit" value="Search">
-      </form>
+            
+          </tr>
+        </table>
+      </div>
     </div>
-
+    
     <!-- Update Hero Form -->
     <h2 class="section-title">Update Hero</h2>
     <div class="banner-group">
@@ -143,7 +213,7 @@ if (!$result) {
           <label for="update-name">Select a Hero</label>
           <select name="update-name" id="update-name">
             <?php
-              $result = mysqli_query($connection, "SELECT * FROM heroes");
+              $result = returnQuery("SELECT * FROM heroes");
               while ($row = mysqli_fetch_assoc($result)){
                 // print_r($row);
                 $heroName = $row['name'];
@@ -159,9 +229,10 @@ if (!$result) {
         <div class="form-group">
           <label for="update-class">Class</label>
           <select name="update-class" id="update-class" size="1">
-            <?php
-            
-            ?>
+            <option value="1">Archer</option>
+            <option value="2">Mage</option>
+            <option value="3">Priest</option>
+            <option value="4">Warrior</option>
           </select>
         </div>
         <div class="form-group">
@@ -180,7 +251,7 @@ if (!$result) {
           <label for="update-weapon">Weapon</label>
           <input id="update-weapon" name="update-weapon" type="text" required>
         </div>
-        <input class="btn btn-blue" type="submit" name="submit" value="Update">
+        <input class="btn btn-blue" type="submit" name="update" value="Update">
       </form>
       <img class="banner-img" src="adventurer.png" alt="image of wizard.">
     </div>
