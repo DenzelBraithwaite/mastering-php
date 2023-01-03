@@ -40,12 +40,12 @@ if (isset($_POST['create'])) {
   if ($duplicates['COUNT(1)']) {
     echo "Duplicate entry blocked!";
   } else {
-    echo 'New entry added!';
+    // echo 'New entry added!';
     returnQuery($insertQuery);
   }
   
 } else {
-  echo 'no submit detected';
+  // echo 'no submit detected';
 };
 
 // Reading row
@@ -65,7 +65,7 @@ if (isset($_POST['find'])) {
     WHERE name = ('$findName')"
   );
 } else {
-  echo "<br> No Search detected.";
+  // echo "<br> No Search detected.";
 };
 
 // Updating form
@@ -90,11 +90,25 @@ if (isset($_POST['update'])) {
                   WHERE
                     name = ('$oldName')";
   returnQuery($updateQuery);
-  echo "<br> Update Successful!";
+  // echo "<br> Update Successful!";
 
 } else {
-  echo "<br> No Update detected";
+  // echo "<br> No Update detected";
 }
+
+// Deleting from database
+if (isset($_POST['delete'])) {
+  $delName = $_POST['del-name'];
+  $delQuery = "
+  DELETE FROM heroes
+  WHERE name = ('$delName')
+  ";
+  
+  returnQuery($delQuery);
+  // echo "<br> Hero deleted!";
+} else {
+  // echo "<br> No hero deleted.";
+};
 ?>
 
 <!DOCTYPE html>
@@ -113,7 +127,7 @@ if (isset($_POST['update'])) {
   <div class="container-lg">
 
     <!-- Create Hero Form -->
-    <h2 class="section-title">Create a Hero</h2>
+    <h2 class="section-title"><span style="color: #8c6e46">Create </span>Hero</h2>
     <div class="banner-group">
       <form action="register.php" method="POST">
         <div class="form-group">
@@ -152,7 +166,7 @@ if (isset($_POST['update'])) {
     </div>
 
     <!-- Search Hero Form -->
-    <h2 class="section-title">Search for Heroes</h2>
+    <h2 class="section-title"><span style="color: #607B21">Find </span>Hero</h2>
     <div class="banner-group">
       <img class="banner-img" src="wizard.png" alt="image of wizard.">
       <div class="form-table-group">
@@ -184,6 +198,8 @@ if (isset($_POST['update'])) {
           </thead>
           <tr>
             <?php
+            if (isset($_POST['find'])) {
+
               $row = mysqli_fetch_assoc($findHeroQuery);
               $findClass = $row['class'];
               $findAge = $row['age'];
@@ -198,6 +214,16 @@ if (isset($_POST['update'])) {
               <td>$findDamage</td>
               <td>$findWeapon</td>
               ";
+            } else {
+              echo "
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              ";
+            }
             ?>
             
           </tr>
@@ -206,7 +232,7 @@ if (isset($_POST['update'])) {
     </div>
     
     <!-- Update Hero Form -->
-    <h2 class="section-title">Update Hero</h2>
+    <h2 class="section-title"><span style="color: #346390">Update </span>Hero</h2>
     <div class="banner-group">
       <form action="register.php" method="POST">
         <div class="form-group">
@@ -254,6 +280,27 @@ if (isset($_POST['update'])) {
         <input class="btn btn-blue" type="submit" name="update" value="Update">
       </form>
       <img class="banner-img" src="adventurer.png" alt="image of wizard.">
+    </div>
+
+    <!-- Delete a hero form -->
+    <h2 class="section-title"><span style="color: #ba2f3a">Delete </span>Hero</h2>
+    <div class="banner-group">
+      <img class="banner-img" src="dead.png" alt="image of wizard.">
+        <form action="register.php" method="POST">
+          <div class="form-group">
+            <label for="find-name">Select a Hero</label>
+            <select name="del-name" id="find-name">
+              <?php
+              $result = returnQuery("SELECT * FROM heroes");
+              while ($row = mysqli_fetch_assoc($result)){
+                $heroName = $row['name'];
+                echo "<option value=$heroName>$heroName</option>";
+              };
+              ?>
+            </select>
+          </div>
+          <input class="btn btn-red" type="submit" name="delete" value="Destroy">
+        </form>
     </div>
   </div>
   <footer>
