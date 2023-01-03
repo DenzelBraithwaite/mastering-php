@@ -38,28 +38,27 @@ if (isset($_POST['submit'])) {
     echo 'The name does not exist';
     mysqli_query($connection, $queryInsert);
   }
-
-  $querySelectAll = "SELECT * FROM heroes";
-
-  $result = mysqli_query($connection, $querySelectAll);
-  // Making sure $result and db connection exists.
-  if (!$result) {
-    die("Something went terribly wrong..." . mysqli_error());
-  };
-
+  
 } else {
-  echo 'no';
+  echo 'no submit detected';
 };
 
+
+function returnQuery($query) {
+  global $connection;
+  return mysqli_query($connection, $query);
+};
+
+$querySelectAll = "SELECT * FROM heroes";
+$result = returnQuery($querySelectAll);
+  
+// Making sure $result and db connection exists.
+if (!$result) {
+  die("Something went terdddribly wrong..." . mysqli_error());
+};
+
+
 ?>
-  <?php
-    // echo $heroClass . '<br>';
-    // echo $name . '<br>';
-    // echo $age . '<br>';
-    // echo $health . '<br>';
-    // echo $damage . '<br>';
-    // echo $weapon . '<br>';
-  ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -124,7 +123,11 @@ if (isset($_POST['submit'])) {
           <label for="search-name">Select a Hero</label>
           <select name="search-name" id="search-name">
           <?php
-            
+              while ($row = mysqli_fetch_assoc($result)){
+                // print_r($row);
+                $heroName = $row['name'];
+                echo "<option value=$heroName>$heroName</option>";
+              };
             ?>
           </select>
         </div>
@@ -139,7 +142,14 @@ if (isset($_POST['submit'])) {
         <div class="form-group">
           <label for="update-name">Select a Hero</label>
           <select name="update-name" id="update-name">
-            <option value="test">test</option>
+            <?php
+              $result = mysqli_query($connection, "SELECT * FROM heroes");
+              while ($row = mysqli_fetch_assoc($result)){
+                // print_r($row);
+                $heroName = $row['name'];
+                echo "<option value=$heroName>$heroName</option>";
+              };
+            ?>
           </select>
         </div>
         <div class="form-group">
