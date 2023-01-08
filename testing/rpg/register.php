@@ -23,18 +23,18 @@ if (isset($_POST['create'])) {
               weapon
               )
               VALUES(
-                ('$heroClass'),
-                ('$name'),
-                ('$age'),
-                ('$health'),
-                ('$damage'),
-                ('$weapon')
+                '$heroClass',
+                '$name',
+                '$age',
+                '$health',
+                '$damage',
+                '$weapon'
               )";
 
   // Looks / counts for any duplicates
   $queryDuplicate = "SELECT COUNT(1)
                       FROM heroes
-                      WHERE name = ('$name')";
+                      WHERE name = '$name'";
 
   $duplicates = mysqli_fetch_assoc(returnQuery($queryDuplicate));
   if ($duplicates['COUNT(1)']) {
@@ -62,7 +62,7 @@ if (isset($_POST['find'])) {
     FROM heroes
     INNER JOIN classes
     ON heroes.class_id = classes.class_id
-    WHERE name = ('$findName')"
+    WHERE name = '$findName'"
   );
 } else {
   // echo "<br> No Search detected.";
@@ -81,14 +81,14 @@ if (isset($_POST['update'])) {
   $updateQuery = "UPDATE
                     heroes
                   SET
-                    class_id = ('$heroClass'),
-                    name = ('$newName'),
-                    age = ('$age'),
-                    health = ('$health'),
-                    damage = ('$damage'),
-                    weapon = ('$weapon')
+                    class_id = '$heroClass',
+                    name = '$newName',
+                    age = '$age',
+                    health = '$health',
+                    damage = '$damage',
+                    weapon = '$weapon'
                   WHERE
-                    name = ('$oldName')";
+                    name = '$oldName'";
   returnQuery($updateQuery);
   // echo "<br> Update Successful!";
 
@@ -101,7 +101,7 @@ if (isset($_POST['delete'])) {
   $delName = $_POST['del-name'];
   $delQuery = "
   DELETE FROM heroes
-  WHERE name = ('$delName')
+  WHERE name = '$delName'
   ";
   
   returnQuery($delQuery);
