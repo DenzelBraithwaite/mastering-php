@@ -1,12 +1,14 @@
-<?php
-$serverName = "MSSQLSERVER";
-$databaseName = "lbpsb_project";
-$username = "kaz";
-$password = "";
+<?php  
+$serverName = "mssqlserver"; 
+$username = "kaz";   
+$password = "";  
+$databaseName = "lbpsb_project"; 
 
-// Try removing db name or playing with server name if it doesnt work.
-$connection = mysqli_connect($serverName, $username, $password, $databaseName);
+$connectionInfo = [
+    "username"=>$username,
+    "password"=>$password,
+    "database"=>$databaseName
+];
 
-// Raise error if no db connection.
-if (!$connection) die('Connection to DB not established :(').error($connection) . mysqli_error($connection);
-?>
+/* Connect using SQL Server Authentication. */  
+$connection = sqlsrv_connect( $serverName, $connectionInfo);  

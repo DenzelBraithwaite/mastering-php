@@ -15,185 +15,63 @@
 <body>
   <div class="container-lg">
 
-    <!-- Create Hero Form -->
-    <h2 class="section-title"><span style="color: #8c6e46">Create </span>Hero</h2>
-    <div class="banner-group">
-      <form action="register.php" method="POST">
-        <div class="form-group">
-          <label for="create-class">Class</label>
-          <select name="create-class" id="create-class" size="1">
-            <option value="1">Archer</option>
-            <option value="2">Mage</option>
-            <option value="3">Priest</option>
-            <option value="4">Warrior</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="create-name">Name</label>
-          <input id="create-name" name="create-name" type="text" required>
-        </div>
-        <div class="form-group">
-          <label for="create-age">Age</label>
-          <input id="create-age" name="create-age" type="number" required>
-        </div>
-        <div class="form-group">
-          <label for="create-health">Health</label>
-          <input id="create-health" name="create-health" type="number" required>
-        </div>
-        <div class="form-group">
-          <label for="create-damage">Damage</label>
-          <input id="create-damage" name="create-damage" type="number" required>
-        </div>
-        <div class="form-group">
-          <label for="create-weapon">Weapon</label>
-          <input id="create-weapon" name="create-weapon" type="text" required>
-        </div>
-        <input class="btn btn-submit" type="submit" name="create" value="Create">
-        <!-- <button name="submit" type="submit">Submit</button> -->
-      </form>
-      <img class="banner-img" src="banner.png" alt="image of ...">
-    </div>
-
-    <!-- Search Hero Form -->
-    <h2 class="section-title"><span style="color: #607B21">Find </span>Hero</h2>
-    <div class="banner-group">
-      <img class="banner-img" src="wizard.png" alt="image of wizard.">
-      <div class="form-table-group">
-        <form action="register.php" method="POST">
-          <div class="form-group">
-            <label for="find-name">Select a Hero</label>
-            <select name="find-name" id="find-name">
-              <?php
-              $result = returnQuery("SELECT * FROM heroes");
-              while ($row = mysqli_fetch_assoc($result)){
-                $heroName = $row['name'];
-                echo "<option value=$heroName>$heroName</option>";
-              };
-              ?>
-            </select>
-          </div>
-          <input class="btn btn-blue" type="submit" name="find" value="Search">
-        </form>
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Class</th>
-              <th>Age</th>
-              <th>Health</th>
-              <th>hamage</th>
-              <th>Weapon</th>
-            </tr>
-          </thead>
-          <tr>
-            <?php
-            if (isset($_POST['find'])) {
-
-              $row = mysqli_fetch_assoc($findHeroQuery);
-              $findClass = $row['class'];
-              $findAge = $row['age'];
-              $findHealth = $row['health'];
-              $findDamage = $row['damage'];
-              $findWeapon = $row['weapon'];
-              echo "
-              <td>$findName</td>
-              <td>$findClass</td>
-              <td>$findAge</td>
-              <td>$findHealth</td>
-              <td>$findDamage</td>
-              <td>$findWeapon</td>
-              ";
-            } else {
-              echo "
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              ";
-            }
-            ?>
-            
-          </tr>
-        </table>
-      </div>
-    </div>
     
-    <!-- Update Hero Form -->
-    <h2 class="section-title"><span style="color: #346390">Update </span>Hero</h2>
+    <!-- Search Hero Form -->
+    <h2 class="section-title">Teacher Search</h2>
     <div class="banner-group">
-      <form action="register.php" method="POST">
-        <div class="form-group">
-          <label for="update-name">Select a Hero</label>
-          <select name="update-name" id="update-name">
-            <?php
-              $result = returnQuery("SELECT * FROM heroes");
-              while ($row = mysqli_fetch_assoc($result)){
-                // print_r($row);
-                $heroName = $row['name'];
-                echo "<option value=$heroName>$heroName</option>";
-              };
-            ?>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="update-new-name">Name</label>
-          <input id="update-new-name" name="update-new-name" type="text" required>
-        </div>
-        <div class="form-group">
-          <label for="update-class">Class</label>
-          <select name="update-class" id="update-class" size="1">
-            <option value="1">Archer</option>
-            <option value="2">Mage</option>
-            <option value="3">Priest</option>
-            <option value="4">Warrior</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="update-age">Age</label>
-          <input id="update-age" name="update-age" type="number" required>
-        </div>
-        <div class="form-group">
-          <label for="update-health">Health</label>
-          <input id="update-health" name="update-health" type="number" required>
-        </div>
-        <div class="form-group">
-          <label for="update-damage">Damage</label>
-          <input id="update-damage" name="update-damage" type="number" required>
-        </div>
-        <div class="form-group">
-          <label for="update-weapon">Weapon</label>
-          <input id="update-weapon" name="update-weapon" type="text" required>
-        </div>
-        <input class="btn btn-blue" type="submit" name="update" value="Update">
-      </form>
-      <img class="banner-img" src="adventurer.png" alt="image of wizard.">
-    </div>
-
-    <!-- Delete a hero form -->
-    <h2 class="section-title"><span style="color: #ba2f3a">Delete </span>Hero</h2>
-    <div class="banner-group">
-      <img class="banner-img" src="dead.png" alt="image of wizard.">
-        <form action="register.php" method="POST">
+      <img class="banner-img" src="img/classroom.png" alt="elementary students in class">
+        <form action="index.php" method="POST">
           <div class="form-group">
-            <label for="find-name">Select a Hero</label>
-            <select name="del-name" id="find-name">
-              <?php
-              $result = returnQuery("SELECT * FROM heroes");
-              while ($row = mysqli_fetch_assoc($result)){
-                $heroName = $row['name'];
-                echo "<option value=$heroName>$heroName</option>";
-              };
-              ?>
+            <label for="first-name">First Name</label>
+            <input id="first-name" name="first-name" type="text" placeholder="Ex: John">  
+          </div>
+
+          <div class="form-group">
+            <label for="last-name">Family Name</label>
+            <input id="last-name" name="last-name" type="text" placeholder="Ex: Smith">  
+          </div>
+
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <select name="subject" id="subject">
+              <option value=""></option>
+              <option value="tes2t">Tes2t</option>
             </select>
           </div>
-          <input class="btn btn-red" type="submit" name="delete" value="Destroy">
+
+          <div class="form-group">
+            <label for="school">School</label>
+            <select name="school" id="school">
+              <option value=""></option>
+              <option value="test">Test</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="grade">Grade</label>
+            <select name="grade" id="grade">
+              <option value=""></option>
+              <option value="0">Pre-K or Kindergarden</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+            </select>
+          </div>
+          <input class="btn btn-submit" type="submit" name="search" value="Search">
         </form>
     </div>
   </div>
   <footer>
     <p>Copyright &copy; 2023 Denzel Braithwaite</p>
   </footer>
+  <script type="text/javascript" scr="script.js"></script>
 </body>
 </html>
