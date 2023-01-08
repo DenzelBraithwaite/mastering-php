@@ -4,6 +4,8 @@ $databaseName = "lbpsb_project";
 // $username = "kaz";   
 // $password = "";  
 
+// If user and password are not specified in the $connectionInfo array,
+// The connection will be attempted using Windows Authentication.
 $connectionInfo = [
     // "username"=>$username,
     // "password"=>$password,
