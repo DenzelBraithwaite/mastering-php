@@ -1,8 +1,11 @@
 <?php
-// include "db.php";
+include "db.php";
 
-
-
+// Make one long query for the form, querying from one table at first.
+// Then concatenate each form input optionally using if statements.
+// If the user input or chose something, then concatenate it to the query.
+// Return results in the same predefined table always.
+// first name, last name, subject, school and grade columns.
 
 
 ?>
@@ -27,7 +30,7 @@
     <h2 class="section-title">Teacher Search</h2>
     <div class="banner-group">
       <img class="banner-img" src="img/classroom.png" alt="elementary students in class">
-        <form action="index.php" method="POST">
+        <form action="db.php" method="POST">
           <div class="form-group">
             <label for="first-name">First Name</label>
             <input id="first-name" name="first-name" type="text" placeholder="Ex: John">  
@@ -37,20 +40,25 @@
             <label for="last-name">Family Name</label>
             <input id="last-name" name="last-name" type="text" placeholder="Ex: Smith">  
           </div>
+          
+                    <div class="form-group">
+                      <label for="school">School</label>
+                      <select name="school" id="school">
+                        <option value=""></option>
+                        <option value="test">Test</option>
+                      </select>
+                    </div>
 
           <div class="form-group">
             <label for="subject">Subject</label>
             <select name="subject" id="subject">
               <option value=""></option>
-              <option value="tes2t">Tes2t</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="school">School</label>
-            <select name="school" id="school">
-              <option value=""></option>
-              <option value="test">Test</option>
+              <option value="math">Math</option>
+              <option value="science">Science</option>
+              <option value="english">English</option>
+              <option value="french">French</option>
+              <option value="geography">Geography</option>
+              <option value="phys-ed">Phys Ed</option>
             </select>
           </div>
 
@@ -75,6 +83,34 @@
           <input class="btn btn-submit" type="submit" name="search" value="Search">
         </form>
     </div>
+    <table>
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>School</th>
+          <th>Subject</th>
+          <th>Grade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+          $results = execQuery("SELECT * FROM filter_teachers");
+          $length = count($results);
+          for ($counter = 0; $counter < $length; $counter++) {
+              $fName = $results['first_name'];
+              echo "
+              <tr>
+              <td>$array</td>
+              <td>/</td>
+              <td>/</td>
+              <td>/</td>
+              <td>/</td>
+              </tr>";
+          };
+        ?>
+      </tbody>
+    </table>
   </div>
   <footer>
     <p>Copyright &copy; 2023 Denzel Braithwaite</p>

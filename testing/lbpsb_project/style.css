@@ -73,6 +73,25 @@ ul {
 
 table {
     border-collapse: collapse;
+    margin: 0 auto;
+    margin-bottom: 100px;
+}
+
+table,
+th,
+td {
+    border: 1px solid rgb(155, 48, 57);
+}
+
+th,
+td {
+    padding: 0.5rem;
+    background-color: #aad6ff;
+}
+
+th {
+    background-color: #346390;
+    color: #fff;
 }
 
 .container-lg {
@@ -82,7 +101,7 @@ table {
 
 .banner-group {
     margin-top: 60px;
-    margin-bottom: 200px;
+    margin-bottom: 100px;
     gap: 10rem;
     position: relative;
     
@@ -159,27 +178,6 @@ input:focus {
     margin-bottom: 10rem;
     font-size: 2rem;
     text-align: center;
-}
-
-table,
-th,
-td {
-    border: 1px solid rgb(155, 48, 57);
-}
-
-table {
-    margin-top: 4rem;
-}
-
-th,
-td {
-    padding: 0.5rem;
-    background-color: #aad6ff;
-}
-
-th {
-    background-color: #346390;
-    color: #fff;
 }
 
 footer {
