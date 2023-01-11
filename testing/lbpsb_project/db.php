@@ -47,14 +47,19 @@ function execQuery ($query) {
       
     /* Execute the statement. */  
     if (sqlsrv_execute($statement)) {  
-        // $results = [];
+        $results = []; // Might not need to initialize
         $queryResource = sqlsrv_query($connection, $query);
+        $counter = 0;
         while ($row = sqlsrv_fetch_array($queryResource, SQLSRV_FETCH_ASSOC)) {
-            $results['first_name'] = $row[first_name];
-            $results['last_name'] = $row[last_name];
-            $results['school'] = $row[school];
-            $results['subject'] = $row[subject];
-            $results['grade'] = $row[grade];
+            $results["index $counter"] = [
+                'first_name'=>$row['first_name'],
+                'last_name'=>$row['last_name'],
+                'school'=>$row['school'],
+                'subject'=>$row['subject'],
+                'grade'=>$row['grade']
+            ];
+            $counter ++;
+            // print_r($results);
         };
     } else {  
         echo "Query could not be executed. 😥<br>";  

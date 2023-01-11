@@ -30,7 +30,7 @@ include "db.php";
     <h2 class="section-title">Teacher Search</h2>
     <div class="banner-group">
       <img class="banner-img" src="img/classroom.png" alt="elementary students in class">
-        <form action="db.php" method="POST">
+        <form action="index.php" method="POST">
           <div class="form-group">
             <label for="first-name">First Name</label>
             <input id="first-name" name="first-name" type="text" placeholder="Ex: John">  
@@ -95,17 +95,35 @@ include "db.php";
       </thead>
       <tbody>
         <?php
-          $results = execQuery("SELECT * FROM filter_teachers");
-          $length = count($results);
+
+          // Make this work!
+          function queryTeachers ($post) {
+            $query = "SELECT * FROM filter_teachers WHERE ";
+            if ($post['first-name']) {
+              $first_name = $post['first-name'];
+              // $query .= "first_name LIKE '%$first_name'";
+              $query .= "first_name LIKE '%" . $first_name . "%'";
+            };
+            execQuery($query);
+          };
+
+          $results = queryTeachers($_POST);
+          print_r($results);
+          // $length = count($results);
+
           for ($counter = 0; $counter < $length; $counter++) {
-              $fName = $results['first_name'];
+              $fName = $results["index $counter"]['first_name'];
+              $lName = $results["index $counter"]['last_name'];
+              $school = $results["index $counter"]['school'];
+              $subject = $results["index $counter"]['subject'];
+              $grade = $results["index $counter"]['grade'];
               echo "
               <tr>
-              <td>$array</td>
-              <td>/</td>
-              <td>/</td>
-              <td>/</td>
-              <td>/</td>
+              <td>$fName</td>
+              <td>$lName</td>
+              <td>$school</td>
+              <td>$subject</td>
+              <td>$grade</td>
               </tr>";
           };
         ?>
