@@ -38,17 +38,17 @@ if ($connection) {
 
 function execQuery ($query) {
     global $connection;
-    /* Check if query can exectute. */  
+
+    /* Check if query can be prepared. */  
     if (!$statement = sqlsrv_prepare($connection, $query)) {
         echo "Statement/query invalid and cannot be executed. 😥<br>";  
         die(print_r(sqlsrv_errors(), true));  
     };
-
-      
-    /* Execute the statement. */  
+    /* Execute the prepared statement. */  
     if (sqlsrv_execute($statement)) {  
         $results = []; // Might not need to initialize
         $queryResource = sqlsrv_query($connection, $query);
+        // $queryResource = sqlsrv_execute($statement); // Should also work
         $counter = 0;
         while ($row = sqlsrv_fetch_array($queryResource, SQLSRV_FETCH_ASSOC)) {
             $results["index $counter"] = [
@@ -59,13 +59,17 @@ function execQuery ($query) {
                 'grade'=>$row['grade']
             ];
             $counter ++;
-            // print_r($results);
         };
     } else {  
         echo "Query could not be executed. 😥<br>";  
         die(print_r(sqlsrv_errors(), true));  
     }  
+    foreach ($results as $result) {
+        echo "<br>";
+    }
+    
     return $results;
+
     
     // return sqlsrv_fetch_array($queryResource, SQLSRV_FETCH_ASSOC);
 

@@ -37,7 +37,7 @@ include "db.php";
           </div>
 
           <div class="form-group">
-            <label for="last-name">Family Name</label>
+            <label for="last-name">Last Name</label>
             <input id="last-name" name="last-name" type="text" placeholder="Ex: Smith">  
           </div>
           
@@ -97,26 +97,25 @@ include "db.php";
         <?php
 
           // Make this work!
-          function queryTeachers ($post) {
-            $query = "SELECT * FROM filter_teachers WHERE ";
-            if ($post['first-name']) {
-              $first_name = $post['first-name'];
-              // $query .= "first_name LIKE '%$first_name'";
-              $query .= "first_name LIKE '%" . $first_name . "%'";
-            };
-            execQuery($query);
+          function queryTeachers () {
+            $query = "SELECT * FROM filter_teachers";
+            // if ($_POST['first-name']) {
+            //   $first_name = $_POST['first-name'];
+            //   // $query .= "first_name LIKE '%$first_name'";
+            //   $query .= "first_name LIKE '%" . $first_name . "%'";
+            // };
+            return execQuery($query);
           };
 
-          $results = queryTeachers($_POST);
-          print_r($results);
-          // $length = count($results);
+          $qResults = queryTeachers();
+          $length = count($qResults);
 
           for ($counter = 0; $counter < $length; $counter++) {
-              $fName = $results["index $counter"]['first_name'];
-              $lName = $results["index $counter"]['last_name'];
-              $school = $results["index $counter"]['school'];
-              $subject = $results["index $counter"]['subject'];
-              $grade = $results["index $counter"]['grade'];
+              $fName = $qResults["index $counter"]['first_name'];
+              $lName = $qResults["index $counter"]['last_name'];
+              $school = $qResults["index $counter"]['school'];
+              $subject = $qResults["index $counter"]['subject'];
+              $grade = $qResults["index $counter"]['grade'];
               echo "
               <tr>
               <td>$fName</td>
