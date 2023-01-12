@@ -52,7 +52,7 @@ video {
 }
 
 body {
-    background: linear-gradient(to bottom, #cee7ff, #1970c25b);
+    background: linear-gradient(to bottom, #ecf6ff, #b4dbff);
     margin: 0 auto;
     line-height: 1;
     position: relative;
@@ -74,34 +74,46 @@ ul {
 table {
     border-collapse: collapse;
     margin: 0 auto;
-    margin-bottom: 100px;
+    margin-bottom: 60px;
+    box-shadow: 2px 2px 12px #1970c281;
 }
 
 table,
 th,
 td {
-    border: 1px solid rgb(155, 48, 57);
+    border: 1px solid #000;
 }
 
 th,
 td {
-    padding: 0.5rem;
-    background-color: #aad6ff;
+    padding: 0.5rem 1.5rem;
 }
 
 th {
-    background-color: #346390;
+    background-color: #1971c2;
     color: #fff;
+}
+
+tr {
+    background-color: #ffffffce;
+}
+
+tr:nth-child(even) {
+    background-color: #cacacabc;
 }
 
 .container-lg {
     position: relative;
     margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .banner-group {
     margin-top: 60px;
-    margin-bottom: 100px;
+    margin-bottom: 60px;
     gap: 10rem;
     position: relative;
     
@@ -135,6 +147,10 @@ input:focus {
     box-shadow: 0 1px 10px 0 #1970c277;
 }
 
+button {
+    margin: 0 auto;
+}
+
 .btn {
     display: inline-block;
     border: none;
@@ -155,6 +171,7 @@ input:focus {
     color: #fff;
     letter-spacing: 0.1rem;
     width: 100%;
+    box-shadow: 0 1px 4px #1970c277;
 }
 
 .btn-submit:hover {
@@ -163,6 +180,18 @@ input:focus {
 
 .btn-submit:active {
     background-color: #0e61af;
+}
+
+.btn-excel {
+    border: 1px solid #000;
+    /* transition: all 5 ease-in-out; Make a transition */
+}
+
+.btn-excel:active,
+.btn-excel:hover {
+    border: 1px solid transparent;
+    color: #fff;
+    background-color: #22864f;
 }
 
 
@@ -175,7 +204,7 @@ input:focus {
 
 .section-title {
     margin-top: 6rem;
-    margin-bottom: 10rem;
+    margin-bottom: 9rem;
     font-size: 2rem;
     text-align: center;
 }
@@ -184,7 +213,7 @@ footer {
     font-weight: 900;
     text-align: center;
     padding: 10px 0 20px;
-    margin-top: 100px;
+    margin-top: 200px;
 }
 
 @media (max-width: 1800px) {

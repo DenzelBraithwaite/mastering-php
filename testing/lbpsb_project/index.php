@@ -128,6 +128,7 @@ include "db.php";
         ?>
       </tbody>
     </table>
+    <button class="btn btn-excel">Export to Excel</button>
   </div>
   <footer>
     <p>Copyright &copy; 2023 Denzel Braithwaite</p>
