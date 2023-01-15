@@ -75,7 +75,7 @@ table {
     border-collapse: collapse;
     margin: 0 auto;
     margin-bottom: 60px;
-    box-shadow: 2px 2px 12px #1970c281;
+    box-shadow: 1px 1px 10px #1970c281;
 }
 
 table,
@@ -127,6 +127,7 @@ form {
 
 form label {
     margin-bottom: 0.25rem;
+    font-weight: 500;
 }
 
 .form-group {
@@ -138,6 +139,13 @@ form label {
 form input,
 form select {
     margin-bottom: 1rem;
+}
+
+form select,
+form input {
+    box-shadow: 0 2px 4px rgba(68, 68, 68, 0.192);
+    border: 0.5px solid rgba(68, 68, 68, 0.349);
+    border-radius: 6px;
 }
 
 input:focus {
@@ -187,11 +195,15 @@ button {
     /* transition: all 5 ease-in-out; Make a transition */
 }
 
-.btn-excel:active,
-.btn-excel:hover {
+.btn-excel:hover,
+.btn-excel:active {
     border: 1px solid transparent;
     color: #fff;
     background-color: #22864f;
+}
+
+.btn-excel:active {
+    background-color: #1b6b3f;
 }
 
 
@@ -203,8 +215,8 @@ button {
 }
 
 .section-title {
-    margin-top: 6rem;
-    margin-bottom: 9rem;
+    margin-top: 4rem;
+    margin-bottom: 7rem;
     font-size: 2rem;
     text-align: center;
 }

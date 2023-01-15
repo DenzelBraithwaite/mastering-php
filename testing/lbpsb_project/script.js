@@ -1,9 +1,10 @@
 'use strict';
 
-// const form = document.getElementById('teacher-form');
+const form = document.getElementById('teacher-form');
+const fName = document.getElementById('first-name');
 
-// const formNoReload = function (event) {
-//     event.preventDefault();
-// };
+const formSubmitHandler = function (event) {
+    //     event.preventDefault();
+};
 
-// form.addEventListener('submit', formNoReload);
+form.addEventListener('submit', formSubmitHandler);

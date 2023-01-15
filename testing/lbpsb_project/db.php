@@ -36,7 +36,7 @@ if ($connection) {
 // ❗ Update after to use params and be more secure ❗
 // $exampleQuery = "SELECT * FROM filter_teachers";
 
-function execQuery ($query) {
+function fetchTeachers ($query) {
     global $connection;
 
     /* Check if query can be prepared. */  
@@ -64,17 +64,38 @@ function execQuery ($query) {
         echo "Query could not be executed. 😥<br>";  
         die(print_r(sqlsrv_errors(), true));  
     }  
-    foreach ($results as $result) {
-        echo "<br>";
-    }
     
     return $results;
-
-    
-
-    /* Free the statement and connection resources. */  
-    sqlsrv_free_stmt($statement);  
-    sqlsrv_close($connection);  
 }
 
+function fetchSchools () {
+    global $connection;
+    $query = "SELECT name FROM schools;";
+
+    /* Check if query can be prepared. */  
+    if (!$statement = sqlsrv_prepare($connection, $query)) {
+        echo "Statement/query invalid and cannot be executed. 😥<br>";  
+        die(print_r(sqlsrv_errors(), true));  
+    };
+    /* Execute the prepared statement. */  
+    if (sqlsrv_execute($statement)) {  
+        $queryResource = sqlsrv_query($connection, $query);
+        $schoolList = [];
+        $notSchools = array('human resources', 'information systems');
+        while ($row = sqlsrv_fetch_array($queryResource, SQLSRV_FETCH_ASSOC)) {
+            $school_name = $row['name'];
+            if (!in_array($school_name, $notSchools)){
+                array_push($schoolList, $school_name);
+            };
+        };
+    } else {  
+        echo "Query could not be executed. 😥<br>";  
+        die(print_r(sqlsrv_errors(), true));  
+    }  
+    
+    return $schoolList;
+}
+/* Free the statement and connection resources. */  
+// sqlsrv_free_stmt($statement);  
+// sqlsrv_close($connection);  
 ?>
