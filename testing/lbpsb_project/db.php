@@ -71,11 +71,10 @@ function execQuery ($query) {
     return $results;
 
     
-    // return sqlsrv_fetch_array($queryResource, SQLSRV_FETCH_ASSOC);
 
     /* Free the statement and connection resources. */  
-    // sqlsrv_free_stmt($statement);  
-    // sqlsrv_close($connection);  
+    sqlsrv_free_stmt($statement);  
+    sqlsrv_close($connection);  
 }
 
 ?>
